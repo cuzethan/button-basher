@@ -1,98 +1,142 @@
-"""
-Starting Template
-
-Once you have learned how to use classes, you can begin your program with this
-template.
-
-If Python and Arcade are installed, this example can be run from the command line with:
-python -m arcade.examples.starting_template
-"""
+import random
 import arcade
+
+# --- Constants ---
+SPRITE_SCALING_PLAYER = 0.5
+SPRITE_SCALING_COIN = .25
+COIN_COUNT = 50
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Starting Template"
+SCREEN_TITLE = "Implement Views Example"
 
 
-class MyGame(arcade.Window):
-    """
-    Main application class.
+class GameView(arcade.View):
+    """ Our custom Window Class"""
 
-    NOTE: Go ahead and delete the methods you don't need.
-    If you do need a method, delete the 'pass' and replace it
-    with your own code. Don't leave 'pass' in this program.
-    """
+    def __init__(self):
+        """ Initializer """
+        # Call the parent class initializer
+        super().__init__()
 
-    def __init__(self, width, height, title):
-        super().__init__(width, height, title)
+        # Variables that will hold sprite lists
+        self.player_list = None
+        self.coin_list = None
+
+        # Set up the player info
+        self.player_sprite = None
+        self.score = 0
 
         arcade.set_background_color(arcade.color.AMAZON)
 
-        # If you have sprite lists, you should create them here,
-        # and set them to None
-
     def setup(self):
-        """ Set up the game variables. Call to re-start the game. """
-        # Create your sprites and sprite lists here
-        pass
+        """ Set up the game and initialize the variables. """
+
+        # Sprite lists
+        self.player_list = arcade.SpriteList()
+        self.coin_list = arcade.SpriteList()
+
+        # Score
+        self.score = 0
+
+        # Set up the player
+        # Character image from kenney.nl
+        self.player_sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png",
+                                           SPRITE_SCALING_PLAYER)
+        self.player_sprite.center_x = 50
+        self.player_sprite.center_y = 50
+        self.player_list.append(self.player_sprite)
+
+        # Create the coins
+        for i in range(COIN_COUNT):
+
+            # Create the coin instance
+            # Coin image from kenney.nl
+            coin = arcade.Sprite(":resources:images/items/coinGold.png",
+                                 SPRITE_SCALING_COIN)
+
+            # Position the coin
+            coin.center_x = random.randrange(SCREEN_WIDTH)
+            coin.center_y = random.randrange(SCREEN_HEIGHT)
+
+            # Add the coin to the lists
+            self.coin_list.append(coin)
 
     def on_draw(self):
-        """
-        Render the screen.
-        """
-
-        # This command should happen before we start drawing. It will clear
-        # the screen to the background color, and erase what we drew last frame.
+        """ Draw everything """
         self.clear()
+        self.coin_list.draw()
+        self.player_list.draw()
 
-        # Call draw() on all your sprite lists below
+        # Put the text on the screen.
+        output = f"Score: {self.score}"
+        arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
+
+    def on_mouse_motion(self, x, y, dx, dy):
+        """ Handle Mouse Motion """
+
+        # Move the center of the player sprite to match the mouse x, y
+        self.player_sprite.center_x = x
+        self.player_sprite.center_y = y
 
     def on_update(self, delta_time):
-        """
-        All the logic to move, and the game logic goes here.
-        Normally, you'll call update() on the sprite lists that
-        need it.
-        """
-        pass
+        """ Movement and game logic """
 
-    def on_key_press(self, key, key_modifiers):
-        """
-        Called whenever a key on the keyboard is pressed.
+        # Call update on all sprites (The sprites don't do much in this
+        # example though.)
+        self.coin_list.update()
 
-        For a full list of keys, see:
-        https://api.arcade.academy/en/latest/arcade.key.html
-        """
-        pass
+        # Generate a list of all sprites that collided with the player.
+        coins_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coin_list)
 
-    def on_key_release(self, key, key_modifiers):
-        """
-        Called whenever the user lets off a previously pressed key.
-        """
-        pass
+        # Loop through each colliding sprite, remove it, and add to the score.
+        for coin in coins_hit_list:
+            coin.remove_from_sprite_lists()
+            self.score += 1
 
-    def on_mouse_motion(self, x, y, delta_x, delta_y):
-        """
-        Called whenever the mouse moves.
-        """
-        pass
+class StartView(arcade.View):
+    def on_show_view(self):
+        """ This is run once when we switch to this view """
+        arcade.set_background_color(arcade.csscolor.DARK_SLATE_BLUE)
 
-    def on_mouse_press(self, x, y, button, key_modifiers):
-        """
-        Called when the user presses a mouse button.
-        """
-        pass
+        # Reset the viewport, necessary if we have a scrolling game and we need
+        # to reset the viewport back to the start so we can see what we draw.
+        arcade.set_viewport(0, self.window.width, 0, self.window.height) 
 
-    def on_mouse_release(self, x, y, button, key_modifiers):
-        """
-        Called when a user releases a mouse button.
-        """
-        pass
+         # Button dimensions
+        self.button_x = self.window.width / 2
+        self.button_y = self.window.height / 2 - 100
+        self.button_width = 200
+        self.button_height = 50  
 
+    def on_draw(self):
+        """ Draw this view """
+        self.clear()
+        arcade.draw_text("Instructions Screen", self.window.width / 2, self.window.height / 2,
+                         arcade.color.WHITE, font_size=50, anchor_x="center")
+        arcade.draw_text("Click to advance", self.window.width / 2, self.window.height / 2-75,
+                         arcade.color.WHITE, font_size=20, anchor_x="center")
+        # Draw the button
+        arcade.draw_rectangle_filled(self.button_x, self.button_y, 
+                                     self.button_width, self.button_height, 
+                                     arcade.color.LIGHT_GRAY)
+        arcade.draw_text("Start Game", self.button_x, self.button_y, 
+                         arcade.color.BLACK, font_size=20, anchor_x="center", anchor_y="center")
+
+    def on_mouse_press(self, x, y, button, modifiers):
+        """ Check if the button is clicked """
+        if (self.button_x - self.button_width / 2 < x < self.button_x + self.button_width / 2 and
+            self.button_y - self.button_height / 2 < y < self.button_y + self.button_height / 2):
+            # Start the game if the button is clicked
+            game_view = GameView()
+            game_view.setup()
+            self.window.show_view(game_view)
 
 def main():
     """ Main function """
-    game = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-    game.setup()
+    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+    start_view = StartView()
+    window.show_view(start_view)
     arcade.run()
 
 
