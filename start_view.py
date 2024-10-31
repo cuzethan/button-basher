@@ -1,50 +1,17 @@
-import random
 import arcade
+from game_view import GameView
 
-# --- Constants ---
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-SCREEN_TITLE = "BUTTON BASHER"
-BUTTON_IMAGE = "button.png"
+class StartView(arcade.View):
 
-
-class GameView(arcade.View):
-    """ Our custom Window Class"""
-
-    def __init__(self):
+    def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         """ Initializer """
         # Call the parent class initializer
         super().__init__()
 
-        # Variables that will hold sprite lists
-        self.button_sprite = None
+        # Save screen dimensions to pass into game view
+        self.SCREEN_WIDTH = SCREEN_WIDTH
+        self.SCREEN_HEIGHT = SCREEN_HEIGHT
 
-        # Set up the player info
-        self.score = 0
-
-        arcade.set_background_color(arcade.color.AMAZON)
-
-    def setup(self):
-        """ Set up the game and initialize the variables. """
-        self.button_sprite = arcade.Sprite(BUTTON_IMAGE)
-        self.button_sprite.center_x = SCREEN_WIDTH // 2
-        self.button_sprite.center_y = SCREEN_HEIGHT // 2
-
-    def on_draw(self):
-        """ Draw everything """
-        arcade.start_render()
-        self.button_sprite.draw()
-        arcade.draw_text(f"Score: {self.score}", 10, SCREEN_HEIGHT-30, arcade.color.BLACK, 20)
-
-    def on_update(self, delta_time):
-        pass
-    
-    def on_mouse_press(self, x, y, button, modifiers):
-        if self.button_sprite.collides_with_point((x,y)):
-            self.score += 1
-            print (f"Button Clicked! Current score: {self.score}")
-
-class StartView(arcade.View):
     def on_show_view(self):
         """ This is run once when we switch to this view """
         arcade.set_background_color(arcade.csscolor.DARK_SLATE_BLUE)
@@ -62,9 +29,9 @@ class StartView(arcade.View):
     def on_draw(self):
         """ Draw this view """
         self.clear()
-        arcade.draw_text("Instructions Screen", self.window.width / 2, self.window.height / 2,
+        arcade.draw_text("BUTTON BASHER", self.window.width / 2, self.window.height / 2,
                          arcade.color.WHITE, font_size=50, anchor_x="center")
-        arcade.draw_text("Click to advance", self.window.width / 2, self.window.height / 2-75,
+        arcade.draw_text("Click To Start Game", self.window.width / 2, self.window.height / 2 - 40,
                          arcade.color.WHITE, font_size=20, anchor_x="center")
         # Draw the button
         arcade.draw_rectangle_filled(self.button_x, self.button_y, 
@@ -78,17 +45,6 @@ class StartView(arcade.View):
         if (self.button_x - self.button_width / 2 < x < self.button_x + self.button_width / 2 and
             self.button_y - self.button_height / 2 < y < self.button_y + self.button_height / 2):
             # Start the game if the button is clicked
-            game_view = GameView()
+            game_view = GameView(self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
             game_view.setup()
             self.window.show_view(game_view)
-
-def main():
-    """ Main function """
-    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-    start_view = StartView()
-    window.show_view(start_view)
-    arcade.run()
-
-
-if __name__ == "__main__":
-    main()
