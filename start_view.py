@@ -3,14 +3,10 @@ from game_view import GameView
 
 class StartView(arcade.View):
 
-    def __init__(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+    def __init__(self):
         """ Initializer """
         # Call the parent class initializer
         super().__init__()
-
-        # Save screen dimensions to pass into game view
-        self.SCREEN_WIDTH = SCREEN_WIDTH
-        self.SCREEN_HEIGHT = SCREEN_HEIGHT
 
     def on_show_view(self):
         """ This is run once when we switch to this view """
@@ -45,6 +41,6 @@ class StartView(arcade.View):
         if (self.button_x - self.button_width / 2 < x < self.button_x + self.button_width / 2 and
             self.button_y - self.button_height / 2 < y < self.button_y + self.button_height / 2):
             # Start the game if the button is clicked
-            game_view = GameView(self.SCREEN_WIDTH, self.SCREEN_HEIGHT)
+            game_view = GameView()
             game_view.setup()
             self.window.show_view(game_view)
