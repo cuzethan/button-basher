@@ -1,5 +1,5 @@
 import arcade
-from game_view import GameView
+from name_input_view import NameInputView
 
 class StartView(arcade.View):
 
@@ -40,7 +40,6 @@ class StartView(arcade.View):
         """ Check if the button is clicked """
         if (self.button_x - self.button_width / 2 < x < self.button_x + self.button_width / 2 and
             self.button_y - self.button_height / 2 < y < self.button_y + self.button_height / 2):
-            # Start the game if the button is clicked
-            game_view = GameView()
-            game_view.setup()
-            self.window.show_view(game_view)
+            #Start the game if the button is clicked
+            name_view = NameInputView()
+            self.window.show_view(name_view)

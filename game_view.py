@@ -4,14 +4,15 @@ from button_section import ButtonSection
 class GameView(arcade.View):
     """ Our custom Window Class"""
 
-    def __init__(self):
+    def __init__(self, name):
         """ Initializer """
         # Call the parent class initializer
         super().__init__()
+        self.name = name
 
         self.add_section(ButtonSection(self.window.width / 2, 0,
                                     self.window.width / 2, self.window.height,
-                                    name='Button'))
+                                    name=self.name))
 
     def setup(self):
         pass
