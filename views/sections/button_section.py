@@ -1,7 +1,7 @@
 import arcade
 
 #constants
-BUTTON_IMAGE = "button.png"
+BUTTON_IMAGE = "assets/button.png"
 
 class ButtonSection(arcade.Section):
 
@@ -22,14 +22,13 @@ class ButtonSection(arcade.Section):
     def on_draw(self):
         arcade.draw_lrtb_rectangle_filled(self.left, self.right, self.top, self.bottom, arcade.color.GRAY)
         self.button_sprite.draw()
-        arcade.draw_text(f"{self.name}'s Button Factory", self.width, self.window.height - 60, 
+        arcade.draw_text(f"{self.name}'s Button Factory", self.left, self.window.height - 60, 
             arcade.color.BLACK, 25, width=self.width, align="center")
-        arcade.draw_text(f"{self.score} Buttons", self.width, self.window.height // 2 + 160, 
+        arcade.draw_text(f"{self.score} Buttons", self.left, self.window.height // 2 + 160, 
             arcade.color.BLACK, 25, width=self.width, align="center")
-        arcade.draw_text(f"{self.score_per_sec} Buttons Per Sec", self.width, self.window.height // 2 + 120, 
+        arcade.draw_text(f"{self.score_per_sec} Buttons Per Sec", self.left, self.window.height // 2 + 120, 
             arcade.color.BLACK, 20, width=self.width, align="center")
 
     def on_mouse_press(self, x, y, button, modifiers):
         if self.button_sprite.collides_with_point((x,y)):
             self.score += 1
-            print (f"Button Clicked! Current score: {self.score}")

@@ -1,5 +1,5 @@
 import arcade
-from name_input_view import NameInputView
+from views import NameInputView
 
 class StartView(arcade.View):
 

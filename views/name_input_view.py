@@ -1,5 +1,5 @@
 import arcade
-from game_view import GameView
+from views import GameView
 
 class NameInputView(arcade.View):
     def __init__(self):

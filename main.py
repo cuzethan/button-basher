@@ -1,5 +1,5 @@
 import arcade
-from start_view import StartView
+from views import StartView
 
 # --- Constants ---
 SCREEN_WIDTH = 1200
