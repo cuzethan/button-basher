@@ -24,10 +24,14 @@ class ButtonSection(arcade.Section):
         self.button_sprite.draw()
         arcade.draw_text(f"{self.name}'s Button Factory", self.left, self.window.height - 60, 
             arcade.color.BLACK, 25, width=self.width, align="center")
-        arcade.draw_text(f"{self.score} Buttons", self.left, self.window.height // 2 + 160, 
+        arcade.draw_text(f"{int(self.score)} Buttons", self.left, self.window.height // 2 + 160, 
             arcade.color.BLACK, 25, width=self.width, align="center")
         arcade.draw_text(f"{self.score_per_sec} Buttons Per Sec", self.left, self.window.height // 2 + 120, 
             arcade.color.BLACK, 20, width=self.width, align="center")
+        
+    def on_update(self, delta_time):
+        # Increment score automatically based on score_per_sec
+        self.score += self.score_per_sec * delta_time
 
     def on_mouse_press(self, x, y, button, modifiers):
         if self.button_sprite.collides_with_point((x,y)):
