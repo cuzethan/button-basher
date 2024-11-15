@@ -10,6 +10,10 @@ class UpgradeSection(arcade.Section):
         self.double_clicker_cost = 30
         self.auto_clicker_active = False
         self.double_clicker_active = False
+        self.factory_worker_cost = 100
+        self.factory_worker_count = 0
+        self.mega_autoclicker_cost = 500
+        self.mega_autoclicker_active = False
 
     def on_draw(self):
         arcade.draw_lrtb_rectangle_filled(self.left, self.right, self.top, self.bottom, arcade.color.ORANGE)
@@ -25,6 +29,15 @@ class UpgradeSection(arcade.Section):
         double_clicker_text = "DoubleClicker - Cost: 30" if not self.double_clicker_active else "DoubleClicker Activated"
         double_clicker_color = arcade.color.DARK_GREEN if not self.double_clicker_active else arcade.color.GREEN
         arcade.draw_text(double_clicker_text, self.left + 20, self.top - 140, double_clicker_color, 16)
+
+        # Draw Factory Worker Upgrade
+        arcade.draw_text(f"Factory Workers (x{self.factory_worker_count}) - Cost: {self.factory_worker_cost}", 
+                         self.left + 20, self.top - 180, arcade.color.DARK_GREEN, 16)
+        
+         # Draw Mega Autoclicker Upgrade
+        mega_autoclicker_text = "Mega Autoclicker - Cost: 500" if not self.mega_autoclicker_active else "Mega Autoclicker Activated"
+        mega_autoclicker_color = arcade.color.DARK_GREEN if not self.mega_autoclicker_active else arcade.color.GREEN
+        arcade.draw_text(mega_autoclicker_text, self.left + 20, self.top - 220, mega_autoclicker_color, 16)
 
     def on_mouse_press(self, x, y, button, modifiers):
         # Check for AutoClicker purchase
@@ -42,4 +55,19 @@ class UpgradeSection(arcade.Section):
                 self.game_view.button_section.score -= self.double_clicker_cost
                 self.double_clicker_active = True
                 self.game_view.button_section.click_value = 2  # Sets each click to add 2 points
+
+        # Check for Factory Worker purchase
+        if (self.left + 20 < x < self.left + 180 and self.top - 190 < y < self.top - 170):
+            if self.game_view.button_section.score >= self.factory_worker_cost:
+                # Deduct cost and add worker
+                self.game_view.button_section.score -= self.factory_worker_cost
+                self.factory_worker_count += 1
+                self.factory_worker_cost = int(self.factory_worker_cost * 1.5)  # Increase cost
+                self.game_view.button_section.score_per_sec += 5  # Each worker adds 5 buttons/sec
+
+        if (self.left + 20 < x < self.left + 180 and self.top - 230 < y < self.top - 210):
+            if self.game_view.button_section.score >= self.mega_autoclicker_cost and not self.mega_autoclicker_active:
+                self.game_view.button_section.score -= self.mega_autoclicker_cost
+                self.mega_autoclicker_active = True
+                self.game_view.button_section.score_per_sec += 10  # Adds 10 buttons/sec
 
