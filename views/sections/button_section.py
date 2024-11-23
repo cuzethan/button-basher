@@ -22,6 +22,7 @@ class ButtonSection(arcade.Section):
         # Set up the player info
         self.score = 0
         self.score_per_sec = 0
+        self.click_value = 1
 
     def on_draw(self):
         arcade.draw_lrtb_rectangle_filled(self.left, self.right, self.top, self.bottom, arcade.color.GRAY)
@@ -54,5 +55,5 @@ class ButtonSection(arcade.Section):
 
     def on_mouse_press(self, x, y, button, modifiers):
         if self.button_sprite.collides_with_point((x, y)):
-            self.score += 1
+            self.score += self.click_value
             self.scale_target = 0.9  # Shrink the button when clicked
