@@ -1,6 +1,5 @@
 import arcade
 from views.sections import UpgradeSection, ButtonSection
-from .upgrades import AutoClicker, DoubleClicker
 
 class GameView(arcade.View):
     def __init__(self, name):
@@ -9,8 +8,6 @@ class GameView(arcade.View):
         self.score = 0 
         self.score_per_sec = 0
         self.click_value = 1
-        self.auto_clicker = AutoClicker()
-        self.double_clicker = DoubleClicker()
 
         # Pass `self` as the game_view argument to UpgradeSection & ButtonSection
         self.add_section(ButtonSection(self.window.width / 2, 0, self.window.width / 2, self.window.height, name=self.name, game_view=self))
