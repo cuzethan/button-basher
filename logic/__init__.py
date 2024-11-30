@@ -1,4 +1,4 @@
 from .single_upgrade import AutoClicker, DoubleClicker, MegaAutoClicker
-from .stackable_upgrade import *
+from .stackable_upgrade import FactoryWorker
 
-__all__ = ["AutoClicker", "DoubleClicker", "MegaAutoClicker"]
+__all__ = ["AutoClicker", "DoubleClicker", "MegaAutoClicker", "FactoryWorker"]
