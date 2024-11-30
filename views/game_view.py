@@ -12,9 +12,6 @@ class GameView(arcade.View):
         self.auto_clicker = AutoClicker()
         self.double_clicker = DoubleClicker()
 
-        # Store ButtonSection as an attribute to access it in UpgradeSection
-        self.button_section = ButtonSection(self.window.width / 2, 0, self.window.width / 2, self.window.height, name=self.name, game_view=self)
-        self.add_section(self.button_section)
-        
-        # Pass `self` as the game_view argument to UpgradeSection
+        # Pass `self` as the game_view argument to UpgradeSection & ButtonSection
+        self.add_section(ButtonSection(self.window.width / 2, 0, self.window.width / 2, self.window.height, name=self.name, game_view=self))
         self.add_section(UpgradeSection(0, 0, self.window.width / 2, self.window.height, game_view=self))

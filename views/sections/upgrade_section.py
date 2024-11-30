@@ -42,32 +42,32 @@ class UpgradeSection(arcade.Section):
     def on_mouse_press(self, x, y, button, modifiers):
         # Check for AutoClicker purchase
         if (self.left + 20 < x < self.left + 180 and self.top - 110 < y < self.top - 90):
-            if self.game_view.button_section.score >= self.auto_clicker_cost and not self.auto_clicker_active:
+            if self.game_view.score >= self.auto_clicker_cost and not self.auto_clicker_active:
                 # Deduct cost and activate AutoClicker
-                self.game_view.button_section.score -= self.auto_clicker_cost
+                self.game_view.score -= self.auto_clicker_cost
                 self.auto_clicker_active = True
-                self.game_view.button_section.score_per_sec += 1  # 1 point per second from AutoClicker
+                self.game_view.score_per_sec += 1  # 1 point per second from AutoClicker
 
         # Check for DoubleClicker purchase
         if (self.left + 20 < x < self.left + 180 and self.top - 150 < y < self.top - 130):
-            if self.game_view.button_section.score >= self.double_clicker_cost and not self.double_clicker_active:
+            if self.game_view.score >= self.double_clicker_cost and not self.double_clicker_active:
                 # Deduct cost and activate DoubleClicker
-                self.game_view.button_section.score -= self.double_clicker_cost
+                self.game_view.score -= self.double_clicker_cost
                 self.double_clicker_active = True
-                self.game_view.button_section.click_value = 2  # Sets each click to add 2 points
+                self.game_view.click_value = 2  # Sets each click to add 2 points
 
         # Check for Factory Worker purchase
         if (self.left + 20 < x < self.left + 180 and self.top - 190 < y < self.top - 170):
-            if self.game_view.button_section.score >= self.factory_worker_cost:
+            if self.game_view.score >= self.factory_worker_cost:
                 # Deduct cost and add worker
-                self.game_view.button_section.score -= self.factory_worker_cost
+                self.game_view.score -= self.factory_worker_cost
                 self.factory_worker_count += 1
                 self.factory_worker_cost = int(self.factory_worker_cost * 1.5)  # Increase cost
-                self.game_view.button_section.score_per_sec += 5  # Each worker adds 5 buttons/sec
+                self.game_view.score_per_sec += 5  # Each worker adds 5 buttons/sec
 
         if (self.left + 20 < x < self.left + 180 and self.top - 230 < y < self.top - 210):
-            if self.game_view.button_section.score >= self.mega_autoclicker_cost and not self.mega_autoclicker_active:
-                self.game_view.button_section.score -= self.mega_autoclicker_cost
+            if self.game_view.score >= self.mega_autoclicker_cost and not self.mega_autoclicker_active:
+                self.game_view.score -= self.mega_autoclicker_cost
                 self.mega_autoclicker_active = True
-                self.game_view.button_section.score_per_sec += 10  # Adds 10 buttons/sec
+                self.game_view.score_per_sec += 10  # Adds 10 buttons/sec
 
