@@ -1,5 +1,6 @@
 import arcade
 from views import GameView
+import importlib
 
 class NameInputView(arcade.View):
     def __init__(self):
@@ -19,6 +20,9 @@ class NameInputView(arcade.View):
         # Instruction text
         arcade.draw_text("Press Enter to confirm", self.window.width / 2, self.window.height / 2 - 50,
                          arcade.color.DARK_GRAY, 14, anchor_x="center")
+        
+        arcade.draw_text("Press Escape (esc) to return to the main menu", self.window.width / 2,
+                          self.window.height / 2 - 100, arcade.color.DARK_GRAY, 14, anchor_x="center")
 
     def on_key_press(self, key, modifiers):
         """ Handle user input """
@@ -29,6 +33,10 @@ class NameInputView(arcade.View):
         elif key == arcade.key.BACKSPACE:
             # Remove the last character from the input
             self.user_input = self.user_input[:-1]
+        elif key == arcade.key.ESCAPE:
+            name_module = importlib.import_module('views.start_view')
+            StartView = getattr(name_module, 'StartView')
+            self.window.show_view(StartView())  # Transition back to start view 
         else:
             # Add the character to the input if it's a letter, number, or space
             if len(self.user_input) < 15:  # Optional: limit name length
