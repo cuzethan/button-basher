@@ -1,10 +1,11 @@
 import arcade
 
 class SingleUpgrade:
-    def __init__(self, cost, name):
+    def __init__(self, cost, name, help_text):
         self.cost = cost
         self.active = False
         self.name = name
+        self.help_text = help_text
 
     def getDesc(self):
         if self.active:
@@ -17,10 +18,13 @@ class SingleUpgrade:
 
     def activate(self, game_view):
         return False #default behavior
+    
+    def getHelpText(self):
+        return self.help_text
 
 class AutoClicker(SingleUpgrade):
     def __init__(self):
-        super().__init__(50, "AutoClicker")
+        super().__init__(50, "AutoClicker", "Gain an autoclicker which presses 1 button/second")
     
     def activate(self, game_view):
         """Adds 1 point to the score every second."""
@@ -33,7 +37,7 @@ class AutoClicker(SingleUpgrade):
 
 class DoubleClicker(SingleUpgrade):
     def __init__(self):
-        super().__init__(30, "DoubleClicker")
+        super().__init__(30, "DoubleClicker", "Doubles your press value from 1 to 2.")
 
     def activate(self, game_view):
         """Doubles the score added per click when active."""
@@ -46,7 +50,7 @@ class DoubleClicker(SingleUpgrade):
 
 class MegaAutoClicker(SingleUpgrade):
     def __init__(self):
-        super().__init__(500, "Mega Autoclicker")
+        super().__init__(500, "Mega Autoclicker", "Gain a mega autoclicker which presses 10 buttons/second")
 
     def activate(self, game_view):
         """Adds 10 points to the score every second"""

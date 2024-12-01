@@ -1,12 +1,13 @@
 import arcade
 
 class StackableUpgrade:
-    def __init__(self, base_cost, cost_multi, name):
+    def __init__(self, base_cost, cost_multi, name, help_text):
         self.cost = base_cost
         self.cost_multi = cost_multi
         self.active = False 
         self.name = name
         self.count = 0
+        self.help_text = help_text
 
     def get_total_cost(self, amount):
         """Calculate the total cost for buying 'amount' upgrades."""
@@ -39,10 +40,13 @@ class StackableUpgrade:
 
     def getColor(self):
         return arcade.color.DARK_GREEN
+    
+    def getHelpText(self):
+        return self.help_text
 
 class FactoryWorker(StackableUpgrade):
     def __init__(self):
-        super().__init__(100, 1.5, "Factory Workers")
+        super().__init__(100, 1.5, "Factory Workers", "Hire a factory worker(s) to press 5 buttons/sec")
 
     def apply_effect(self, game_view, amount):
         game_view.score_per_sec += 5 * amount # Each worker adds 5 buttons/sec
