@@ -33,6 +33,8 @@ class UpgradeSection(arcade.Section):
         arcade.draw_text("Buy 1", 67.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 1 else arcade.color.BLACK, 15)
         arcade.draw_text("Buy 10", 267.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 10 else arcade.color.BLACK, 15)
         arcade.draw_text("Buy 100", 467.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 100 else arcade.color.BLACK, 15)
+        arcade.draw_text("What do upgrades do?", 20, self.window.height - 60, arcade.color.BLACK, 10, bold=True)
+        arcade.draw_lrtb_rectangle_outline(15, 175, self.window.height-45, self.window.height-65, arcade.color.BLACK)
 
         # Iterate through upgrades and draw them dynamically
         for upgrade, y_offset in self.upgrades:
