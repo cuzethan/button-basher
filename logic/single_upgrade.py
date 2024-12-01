@@ -53,21 +53,21 @@ class MegaAutoClicker(SingleUpgrade):
 
 class ScoreMultiplier(SingleUpgrade):
     def __init__(self):
-        super().__init__(1000, "Score Multiplier")
+        super().__init__(1000, "Score Multiplier", "Gain a score multiplier")
 
     def apply_effect(self, game_view):
         game_view.click_multi *= 1.25  #multiply click multiplier by 1.25
 
 class BoostedClicker(SingleUpgrade):
     def __init__(self):
-        super().__init__(1000, "Score Multiplier")
+        super().__init__(1000, "BoostedClicker", "Gain a considerable increase of buttons generated per click")
 
     def apply_effect(self, game_view):
         game_view.click_multi *= 1.5 #multiply click multiplier by 1.5
 
 class TurboClicker(SingleUpgrade): #temporary upgrade
     def __init__(self):
-        super().__init__(250, "Score Multiplier")
+        super().__init__(250, "TurboClicker", "Temporary incease")
 
     def apply_effect(self, game_view):
         start_time = time.time()
@@ -79,7 +79,7 @@ class TurboClicker(SingleUpgrade): #temporary upgrade
 
 class MaxClicker(SingleUpgrade): #temporary upgrade
     def __init__(self):
-        super().__init__(5000, "Max Clicker")
+        super().__init__(5000, "Max Clicker", "Temporary increase")
 
     def apply_effect(self, game_view):
         start_time = time.time()

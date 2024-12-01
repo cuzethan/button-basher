@@ -18,7 +18,11 @@ class UpgradeSection(arcade.Section):
             (AutoClicker(), 130),
             (DoubleClicker(), 180),
             (MegaAutoClicker(), 230),
-            (FactoryWorker(), 280)
+            (FactoryWorker(), 280),
+            (ScoreMultiplier(), 330),
+            (BoostedClicker(), 380),
+            (TurboClicker(), 430),
+            (MaxClicker(), 480)
         ]
         
     def on_draw(self):
