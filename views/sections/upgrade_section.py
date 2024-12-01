@@ -54,11 +54,9 @@ class UpgradeSection(arcade.Section):
         for upgrade, y_offset in self.upgrades:
             if (self.left + 10 < x < self.right - 10 and self.top - (y_offset + 7.5) < y < self.top - (y_offset - 25)):
                 if isinstance(upgrade, StackableUpgrade): #checks if upgrade is stackable
-                    upgrade.activate(self.game_view, self.buy_amount)
-                    arcade.play_sound(self.purchase_sound) #plays purchase sound
+                    upgrade.activate(self.game_view, self.purchase_sound, self.buy_amount)
                 else: # use activate method for single_upgrade
-                    upgrade.activate(self.game_view)
-                    arcade.play_sound(self.purchase_sound) #plays purchase sound
+                    upgrade.activate(self.game_view, self.purchase_sound)
         # Check if Buy 1 is clicked
         if 67.5 <= x <= 67.5 + 60 and self.window.height - 90 <= y <= self.window.height - 75:
             self.buy_amount = 1

@@ -22,9 +22,10 @@ class StackableUpgrade:
         """Check if the player has enough score to buy 'amount' upgrades."""
         return game_view.score >= self.get_total_cost(amount)
         
-    def activate(self, game_view, amount=1):
+    def activate(self, game_view, sound, amount=1):
         """Buy 'amount' upgrades."""
         if self.can_afford(game_view, amount):
+            arcade.play_sound(sound)
             total_cost = self.get_total_cost(amount)
             game_view.score -= total_cost
             self.count += amount
