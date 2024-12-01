@@ -16,7 +16,7 @@ class SingleUpgrade:
         return arcade.color.GREEN if self.active else arcade.color.DARK_GREEN
 
     def activate(self, game_view):
-        pass
+        return False #default behavior
 
 class AutoClicker(SingleUpgrade):
     def __init__(self):
@@ -28,6 +28,8 @@ class AutoClicker(SingleUpgrade):
             game_view.score -= self.cost
             self.active = True
             game_view.score_per_sec += 1  # 1 point per second from AutoClicker
+            return True #activation successful. Sound plays
+        return False #Not enough buying power. Sound doesn't play
 
 class DoubleClicker(SingleUpgrade):
     def __init__(self):
@@ -39,6 +41,8 @@ class DoubleClicker(SingleUpgrade):
             game_view.score -= self.cost
             self.active = True
             game_view.click_value = 2  # Sets each click to add 2 points
+            return True
+        return False
 
 class MegaAutoClicker(SingleUpgrade):
     def __init__(self):
@@ -50,3 +54,5 @@ class MegaAutoClicker(SingleUpgrade):
             game_view.score -= self.cost
             self.active = True
             game_view.score_per_sec += 10  # 10 point per second from AutoClicker
+            return True
+        return False

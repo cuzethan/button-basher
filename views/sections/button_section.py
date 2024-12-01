@@ -2,6 +2,7 @@ import arcade
 
 # Constants
 BUTTON_IMAGE = "assets/button.png"
+BUTTON_CLICK_SOUND = "assets/click sound.wav"
 
 class ButtonSection(arcade.Section):
 
@@ -17,12 +18,18 @@ class ButtonSection(arcade.Section):
         self.button_sprite.center_y = self.height // 2
         self.button_sprite.scale = 1.0  # Default scale
 
+        self.background_image = arcade.load_texture("assets/button_section.png")  # Load background image
+
+        # Load the button click sound
+        self.button_click_sound = arcade.load_sound(BUTTON_CLICK_SOUND)
+        
         # Animation-related attributes
         self.scale_target = 1.0  # Target scale for animation
         self.scale_speed = 5.0  # Speed of scaling animation
 
     def on_draw(self):
-        arcade.draw_lrtb_rectangle_filled(self.left, self.right, self.top, self.bottom, arcade.color.GRAY)
+         # Draw the background image
+        arcade.draw_lrwh_rectangle_textured(self.left, self.bottom, self.width, self.height, self.background_image)
         self.button_sprite.draw()
         arcade.draw_text(f"{self.name}'s Button Factory", self.left, self.window.height - 60, 
             arcade.color.BLACK, 25, width=self.width, align="center")
@@ -54,3 +61,6 @@ class ButtonSection(arcade.Section):
         if self.button_sprite.collides_with_point((x, y)):
             self.game_view.score += self.game_view.click_value
             self.scale_target = 0.9  # Shrink the button when clicked
+
+            # Play the click sound
+            arcade.play_sound(self.button_click_sound)
