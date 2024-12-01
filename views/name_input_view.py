@@ -18,19 +18,29 @@ class NameInputView(arcade.View):
         # Draw the background image
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background_image)
 
-        arcade.draw_text("Enter your name:", self.window.width / 2, self.window.height / 2 + 50,
-                         arcade.color.TAN, 20, font_name="assets/font.ttf", anchor_x="center", bold = True)
+        arcade.draw_text("Enter your name:", self.window.width / 2, self.window.height / 2 + 10,
+                         arcade.color.BLACK, 30, font_name="Arial", anchor_x="center", bold = True)
+        #Shadow
+        arcade.draw_text("Enter your name:", self.window.width / 2 +2, self.window.height / 2 + 10,
+                         arcade.color.BLACK, 30, font_name="Arial", anchor_x="center", bold = True)
         
         # Draw the current input text
-        arcade.draw_text(self.user_input, self.window.width / 2, self.window.height / 2,
-                         arcade.color.BLUE, 20, anchor_x="center")
+        arcade.draw_text(self.user_input, self.window.width / 2, self.window.height / 2 -20,
+                         arcade.color.YELLOW_ROSE, 20, anchor_x="center", bold = True)
         
         # Instruction text
-        arcade.draw_text("Press Enter to confirm", self.window.width / 2, self.window.height / 2 - 50,
-                         arcade.color.DARK_GRAY, 14, anchor_x="center")
+        arcade.draw_text("Press Enter to confirm", self.window.width / 2, self.window.height / 2 - 70,
+                         arcade.color.BLACK, 14, anchor_x="center", bold= True)
+        #Shadow
+        arcade.draw_text("Press Enter to confirm", self.window.width / 2+2, self.window.height / 2 - 70,
+                         arcade.color.BLACK, 14, anchor_x="center", bold= True)
         
         arcade.draw_text("Press Escape (esc) to return to the main menu", self.window.width / 2,
-                          self.window.height / 2 - 100, arcade.color.DARK_GRAY, 14, anchor_x="center")
+                          self.window.height / 2 - 100, arcade.color.BLACK, 14, anchor_x="center", bold = True)
+        #Shadow
+        arcade.draw_text("Press Escape (esc) to return to the main menu", self.window.width / 2,
+                          self.window.height / 2 - 100, arcade.color.BLACK, 14, anchor_x="center", bold = True)
+        
 
     def on_key_press(self, key, modifiers):
         """ Handle user input """
