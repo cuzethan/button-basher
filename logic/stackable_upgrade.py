@@ -15,7 +15,7 @@ class StackableUpgrade:
         return arcade.color.GREEN if self.active else arcade.color.DARK_GREEN
 
     def activate(self, game_view):
-        pass
+        return False
 
 class FactoryWorker(StackableUpgrade):
     def __init__(self):
@@ -28,4 +28,6 @@ class FactoryWorker(StackableUpgrade):
             self.active = True
             self.cost = self.cost * self.cost_multi  # Increase cost
             game_view.score_per_sec += 5  # Each worker adds 5 buttons/sec
+            return True
+        return False
 

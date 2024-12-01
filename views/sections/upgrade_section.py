@@ -8,6 +8,10 @@ class UpgradeSection(arcade.Section):
         self.game_view = game_view
 
         self.highlight_y_value = None
+        self.background_image = arcade.load_texture("assets/upgrade_section.png")  # Load background image
+
+         # Load the upgrade purchase sound
+        self.purchase_sound = arcade.load_sound("assets/upgrade_sound.mp3")
 
         #Upgrades list, each tuple contains upgrade and y_offset
         self.upgrades = [
@@ -18,7 +22,8 @@ class UpgradeSection(arcade.Section):
         ]
         
     def on_draw(self):
-        arcade.draw_lrtb_rectangle_filled(self.left, self.right, self.top, self.bottom, arcade.color.ORANGE)
+        # Draw the background image
+        arcade.draw_lrwh_rectangle_textured(self.left, self.bottom, self.width, self.height, self.background_image)
         arcade.draw_text("Upgrades", self.left, self.window.height - 60, 
                         arcade.color.BLACK, 25, width=self.width, align="center")
 
@@ -37,7 +42,9 @@ class UpgradeSection(arcade.Section):
         # Iterate through upgrades and check if they were clicked
         for upgrade, y_offset in self.upgrades:
             if (self.left + 10 < x < self.right - 10 and self.top - (y_offset + 7.5) < y < self.top - (y_offset - 25)):
-                upgrade.activate(self.game_view)
+                if upgrade.activate(self.game_view):
+                    #play the purchasing sound if returned true from upgrade logic
+                    arcade.play_sound(self.purchase_sound)
     
     def on_mouse_motion(self, x, y, dx, dy):
         self.highlight_y_value = None
