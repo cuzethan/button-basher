@@ -1,4 +1,5 @@
 import arcade
+import time
 
 class SingleUpgrade:
     def __init__(self, cost, name):
@@ -48,7 +49,38 @@ class MegaAutoClicker(SingleUpgrade):
 
 class ScoreMultiplier(SingleUpgrade):
     def __init__(self):
-        super().__init__(500, "Score Multiplier")
+        super().__init__(1000, "Score Multiplier")
 
     def apply_effect(self, game_view):
-        game_view.click_multi += 0.5  #add click multiplier by 1.5
+        game_view.click_multi *= 1.25  #multiply click multiplier by 1.25
+
+class BoostedClicker(self, game_view):
+    def __init__(self):
+        super().__init__(1000, "Score Multiplier")
+
+    def apply_effect(self, game_view):
+        game_view.click_multi *= 1.5 #multiply click multiplier by 1.5
+
+class TurboClicker(SingleUpgrade): #temporary upgrade
+    def __init__(self):
+        super().__init__(250, "Score Multiplier")
+
+    def apply_effect(self, game_view):
+        start_time = time.time()
+        game_view.click_multi *= 2  #multiply click multi by 2 for 30 sec
+        while time.time() - start_time < 30: #wait 30 sec
+            pass
+        game_view.click_multi /= 2 #revert to default multi
+        self.active = False
+
+class MaxClicker(SingleUpgrade): #temporary upgrade
+    def __init__(self):
+        super().__init__(5000, "Max Clicker")
+
+    def apply_effect(self, game_view):
+        start_time = time.time()
+        game_view.click_value += 20  #add click count by 20 
+        while time.time() - start_time < 30: #wait 60 sec
+            pass
+        game_view.click_multi -= 20 #revert to default click count
+        self.active = False
