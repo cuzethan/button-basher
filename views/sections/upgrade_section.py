@@ -7,6 +7,8 @@ class UpgradeSection(arcade.Section):
         super().__init__(left, bottom, width, height, **kwargs)
         self.game_view = game_view
 
+        self.highlight_y_value = None
+
         #Upgrades list, each tuple contains upgrade and y_offset
         self.upgrades = [
             (AutoClicker(), 100),
@@ -27,8 +29,18 @@ class UpgradeSection(arcade.Section):
             arcade.draw_lrtb_rectangle_outline(self.left + 10, self.right - 10, self.top - (y_offset - 25),
                         self.top - (y_offset + 7.5), arcade.color.BLACK, 2)
 
+            if self.highlight_y_value:
+                arcade.draw_lrtb_rectangle_filled(self.left + 10, self.right - 10, self.top - (self.highlight_y_value - 25),
+                        self.top - (self.highlight_y_value + 7.5), (255, 0, 0, 60))
+
     def on_mouse_press(self, x, y, button, modifiers):
         # Iterate through upgrades and check if they were clicked
         for upgrade, y_offset in self.upgrades:
             if (self.left + 10 < x < self.right - 10 and self.top - (y_offset + 7.5) < y < self.top - (y_offset - 25)):
                 upgrade.activate(self.game_view)
+    
+    def on_mouse_motion(self, x, y, dx, dy):
+        self.highlight_y_value = None
+        for upgrade, y_offset in self.upgrades:
+            if (self.left + 10 < x < self.right - 10 and self.top - (y_offset + 7.5) < y < self.top - (y_offset - 25)):
+                self.highlight_y_value = y_offset
