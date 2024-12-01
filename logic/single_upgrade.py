@@ -58,7 +58,7 @@ class ScoreMultiplier(SingleUpgrade):
     def apply_effect(self, game_view):
         game_view.click_multi *= 1.25  #multiply click multiplier by 1.25
 
-class BoostedClicker(self, game_view):
+class BoostedClicker(SingleUpgrade):
     def __init__(self):
         super().__init__(1000, "Score Multiplier")
 
