@@ -7,6 +7,7 @@ class GameView(arcade.View):
         self.name = name #factory name
         self.score = 0 
         self.score_per_sec = 0
+        self.score_per_sec_multi = 1
         self.click_value = 1
         self.click_multi = 1
 

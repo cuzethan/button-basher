@@ -47,8 +47,43 @@ class StackableUpgrade:
 
 class FactoryWorker(StackableUpgrade):
     def __init__(self):
-        super().__init__(100, 1.5, "Factory Workers", "Hire a factory worker(s) to press 5 buttons/sec")
+        super().__init__(100, 1.5, "Factory Workers", "Hires a factory worker to press 1 button/sec")
 
     def apply_effect(self, game_view, amount):
-        game_view.score_per_sec += 5 * amount # Each worker adds 5 buttons/sec
+        game_view.score_per_sec += 1 * amount # Each worker adds 1 button/sec
 
+class ButtonMachine(StackableUpgrade):
+    def __init__(self):
+        super().__init__(300, 1.6, "Button Machine", "Makes a machine that presses 3 buttons/sec")
+    
+    def apply_effect(self, game_view, amount):
+        game_view.score_per_sec += 3 * amount # Each machine adds 3 buttons/sec
+
+class PowerGenerator(StackableUpgrade):
+    def __init__(self):
+        super().__init__(500, 1.7, "Power Generator", "Creates a power generator that generates 5 buttons/sec")
+    
+    def apply_effect(self, game_view, amount):
+        game_view.score_per_sec += 5 * amount # Each machine adds 5 buttons/sec
+
+class ButtonBoss(StackableUpgrade):
+    def __init__(self):
+        super().__init__(1500, 1.8, "Button Boss", "Hires a button boss that generates 10 buttons/sec")
+    
+    def apply_effect(self, game_view, amount):
+        game_view.score_per_sec += 10 * amount # Each machine adds 10 buttons/sec
+
+class ButtonFactory(StackableUpgrade):
+    def __init__(self):
+        super().__init__(2000, 1.9, "Button Factory", "Creates a button factory that generates 15 buttons/sec")
+    
+    def apply_effect(self, game_view, amount):
+        game_view.score_per_sec += 15 * amount # Each factory adds 15 buttons/sec
+
+class ButtonBashMilk:
+    class ButtonBoss(StackableUpgrade):
+    def __init__(self):
+        super().__init__(200, 1.5, "Button Bash Milk", "Consume some Button Bash Milk that increases click by 0.5 button")
+    
+    def apply_effect(self, game_view, amount):
+        game_view.click_value += 0.5 * amount # Each milk adds 0.5 button/click

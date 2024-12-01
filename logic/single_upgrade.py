@@ -37,33 +37,33 @@ class AutoClicker(SingleUpgrade):
     def apply_effect(self, game_view):
         game_view.score_per_sec += 1  # 1 point per second from AutoClicker
 
-class DoubleClicker(SingleUpgrade):
+class ButtonGear(SingleUpgrade):
     def __init__(self):
-        super().__init__(30, "DoubleClicker", "Doubles your press value from 1 to 2.")
+        super().__init__(30, "Button Gear", "Creates button gear that increase button click multi by 1.10")
 
     def apply_effect(self, game_view):
-        game_view.click_value = 2
+        game_view.click_multi *= 1.10
 
 class MegaAutoClicker(SingleUpgrade):
     def __init__(self):
-        super().__init__(500, "Mega Autoclicker", "Gain a mega autoclicker which presses 10 buttons/second")
+        super().__init__(500, "Mega Autoclicker", "Gain a mega autoclicker which increases button per sec by 1.5x")
 
     def apply_effect(self, game_view):
-        game_view.score_per_sec += 5  # point per second from MegaAutoClicker
+        game_view.score_per_sec_multi *= 1.5 # multi point per sec by 1.5
 
-class ScoreMultiplier(SingleUpgrade):
+class ButtonEvolver(SingleUpgrade):
     def __init__(self):
-        super().__init__(1000, "Score Multiplier", "Gain a score multiplier")
+        super().__init__(1000, "Button Evolver", "Evolve button to make click multiplier by 1.25x")
 
     def apply_effect(self, game_view):
         game_view.click_multi *= 1.25  #multiply click multiplier by 1.25
 
-class BoostedClicker(SingleUpgrade):
+class ButtonBooster(SingleUpgrade):
     def __init__(self):
-        super().__init__(1000, "BoostedClicker", "Gain a considerable increase of buttons generated per click")
+        super().__init__(2000, "ButtonBooster", "Gain a considerable increase of buttons generated per sec")
 
     def apply_effect(self, game_view):
-        game_view.click_multi *= 1.5 #multiply click multiplier by 1.5
+        game_view.score_per_sec_multi *= 2 #multiply point per sec by 2
 
 class TurboClicker(SingleUpgrade): #temporary upgrade
     def __init__(self):
@@ -83,8 +83,8 @@ class MaxClicker(SingleUpgrade): #temporary upgrade
 
     def apply_effect(self, game_view):
         start_time = time.time()
-        game_view.click_value += 20  #add click count by 20 
+        game_view.score_per_sec_multi *= 3  #multiply button per sec by x3
         while time.time() - start_time < 30: #wait 60 sec
             pass
-        game_view.click_multi -= 20 #revert to default click count
+        game_view.score_per_sec_multi /= 3  #reset multi
         self.active = False

@@ -40,7 +40,7 @@ class ButtonSection(arcade.Section):
         
     def on_update(self, delta_time):
         # Increment score automatically based on score_per_sec
-        self.game_view.score += self.game_view.score_per_sec * delta_time
+        self.game_view.score += self.game_view.score_per_sec * self.game_view.score_per_sec_multi * delta_time
 
         # Smoothly scale the button sprite
         if self.button_sprite.scale != self.scale_target:
