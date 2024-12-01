@@ -61,7 +61,11 @@ class NameInputView(arcade.View):
             StartView = getattr(name_module, 'StartView')
             self.window.show_view(StartView())  # Transition back to start view 
         else:
-            # Add the character to the input if it's a letter, number, or space
+            # Handle printable characters (letters, numbers, space)
             if len(self.user_input) < 15:  # Optional: limit name length
                 if 32 <= key <= 126:  # Check if key is a printable ASCII character
+                    # Check if Shift is pressed for capital letters
+                    if modifiers & arcade.key.MOD_SHIFT:  # Shift is pressed
+                        if 97 <= key <= 122:  # Lowercase letter
+                            key -= 32  # Convert to uppercase by changing ASCII value
                     self.user_input += chr(key)

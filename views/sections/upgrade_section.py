@@ -33,6 +33,8 @@ class UpgradeSection(arcade.Section):
         arcade.draw_text("Buy 1", 67.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 1 else arcade.color.BLACK, 15)
         arcade.draw_text("Buy 10", 267.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 10 else arcade.color.BLACK, 15)
         arcade.draw_text("Buy 100", 467.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 100 else arcade.color.BLACK, 15)
+        arcade.draw_text("What do upgrades do?", 20, self.window.height - 60, arcade.color.BLACK, 10, bold=True)
+        arcade.draw_lrtb_rectangle_outline(15, 175, self.window.height-45, self.window.height-65, arcade.color.BLACK)
 
         # Iterate through upgrades and draw them dynamically
         for upgrade, y_offset in self.upgrades:
@@ -52,11 +54,9 @@ class UpgradeSection(arcade.Section):
         for upgrade, y_offset in self.upgrades:
             if (self.left + 10 < x < self.right - 10 and self.top - (y_offset + 7.5) < y < self.top - (y_offset - 25)):
                 if isinstance(upgrade, StackableUpgrade): #checks if upgrade is stackable
-                    upgrade.activate(self.game_view, self.buy_amount)
-                    arcade.play_sound(self.purchase_sound) #plays purchase sound
+                    upgrade.activate(self.game_view, self.purchase_sound, self.buy_amount)
                 else: # use activate method for single_upgrade
-                    upgrade.activate(self.game_view)
-                    arcade.play_sound(self.purchase_sound) #plays purchase sound
+                    upgrade.activate(self.game_view, self.purchase_sound)
         # Check if Buy 1 is clicked
         if 67.5 <= x <= 67.5 + 60 and self.window.height - 90 <= y <= self.window.height - 75:
             self.buy_amount = 1
