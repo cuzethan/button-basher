@@ -49,10 +49,20 @@ class MegaAutoClicker(SingleUpgrade):
         super().__init__(500, "Mega Autoclicker")
 
     def activate(self, game_view):
-        """Adds 10 points to the score every second"""
+        """Adds 5 points to the score every second"""
         if game_view.score >= self.cost and not self.active:
             game_view.score -= self.cost
             self.active = True
-            game_view.score_per_sec += 10  # 10 point per second from AutoClicker
+            game_view.score_per_sec += 5  # point per second from MegaAutoClicker
             return True
-        return False
+
+class ScoreMultiplier(SingleUpgrade):
+    def __init__(self):
+        super().__init__(500, "Score Multiplier")
+
+    def activate(self, game_view):
+        """Increases the points gained per click by 1.5x."""
+        if game_view.score >= self.cost and not self.active:
+            game_view.score -= self.cost
+            self.active = True
+            game_view.click_multi += 0.5  #add click multiplier by 1.5
