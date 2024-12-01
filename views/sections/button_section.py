@@ -59,7 +59,7 @@ class ButtonSection(arcade.Section):
 
     def on_mouse_press(self, x, y, button, modifiers):
         if self.button_sprite.collides_with_point((x, y)):
-            self.game_view.score += (self.game_view.click_value * self.game_value.click_multi)
+            self.game_view.score += (self.game_view.click_value * self.game_view.click_multi)
             self.scale_target = 0.9  # Shrink the button when clicked
 
             # Play the click sound
