@@ -42,5 +42,5 @@ class UpgradeSection(arcade.Section):
     def on_mouse_motion(self, x, y, dx, dy):
         self.highlight_y_value = None
         for upgrade, y_offset in self.upgrades:
-            if (self.left + 10 < x < self.right - 10 and self.top - (y_offset + 7.5) < y < self.top - (y_offset - 25)):
+            if (self.left + 10 < x < self.right - 10 and self.top - (y_offset + 7.5) < y < self.top - (y_offset - 25)) and upgrade.active is False:
                 self.highlight_y_value = y_offset
