@@ -6,7 +6,7 @@ class SingleUpgrade:
         self.active = False
         self.name = name
 
-    def getDesc(self, extra_parameter): #ignore parameter, used for stackable_upgrade.py
+    def getDesc(self):
         if self.active:
             return self.name + " Activated"
         else:

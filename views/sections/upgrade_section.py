@@ -9,7 +9,7 @@ class UpgradeSection(arcade.Section):
         self.buy_amount = 1
         self.highlight_y_value = None
 
-        #Upgrades list, each tuple contains upgrade and y_offset
+        #U pgrades list, each tuple contains upgrade and y_offset
         self.upgrades = [
             (AutoClicker(), 130),
             (DoubleClicker(), 180),
@@ -18,22 +18,28 @@ class UpgradeSection(arcade.Section):
         ]
         
     def on_draw(self):
+        # set background color to orange
         arcade.draw_lrtb_rectangle_filled(self.left, self.right, self.top, self.bottom, arcade.color.ORANGE)
+
+        # set "Upgrades" title
         arcade.draw_text("Upgrades", self.left, self.window.height - 60, 
                         arcade.color.BLACK, 25, width=self.width, align="center")
 
+        # draw buttons 
         arcade.draw_text("Buy 1", 67.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 1 else arcade.color.BLACK, 15)
         arcade.draw_text("Buy 10", 267.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 10 else arcade.color.BLACK, 15)
         arcade.draw_text("Buy 100", 467.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 100 else arcade.color.BLACK, 15)
 
         # Iterate through upgrades and draw them dynamically
         for upgrade, y_offset in self.upgrades:
-            arcade.draw_text(upgrade.getDesc(self.buy_amount), self.left + 20, self.top - y_offset, 
-                        upgrade.getColor(), 16)
-            arcade.draw_lrtb_rectangle_outline(self.left + 10, self.right - 10, self.top - (y_offset - 25),
+            if isinstance(upgrade, StackableUpgrade): # will draw text specifically for stackable upgrades
+                arcade.draw_text(upgrade.getDesc(self.buy_amount), self.left + 20, self.top - y_offset, upgrade.getColor(), 16)
+            else: # draw text for single upgrades
+                arcade.draw_text(upgrade.getDesc(), self.left + 20, self.top - y_offset, upgrade.getColor(), 16)
+            arcade.draw_lrtb_rectangle_outline(self.left + 10, self.right - 10, self.top - (y_offset - 25), # outline of upgrade boxes
                         self.top - (y_offset + 7.5), arcade.color.BLACK, 2)
 
-            if self.highlight_y_value:
+            if self.highlight_y_value: # set highlight for mouse hover on upgrades
                 arcade.draw_lrtb_rectangle_filled(self.left + 10, self.right - 10, self.top - (self.highlight_y_value - 25),
                         self.top - (self.highlight_y_value + 7.5), (255, 0, 0, 60))
 
@@ -41,9 +47,9 @@ class UpgradeSection(arcade.Section):
         # Iterate through upgrades and check if they were clicked
         for upgrade, y_offset in self.upgrades:
             if (self.left + 10 < x < self.right - 10 and self.top - (y_offset + 7.5) < y < self.top - (y_offset - 25)):
-                if isinstance(obj, StackableUpgrade): #checks if upgrade is stackable
+                if isinstance(upgrade, StackableUpgrade): #checks if upgrade is stackable
                     upgrade.activate(self.game_view, self.buy_amount)
-                else:
+                else: # use activate method for single_upgrade
                     upgrade.activate(self.game_view)
         
         # Check if Buy 1 is clicked
@@ -59,6 +65,7 @@ class UpgradeSection(arcade.Section):
             self.buy_amount = 100
     
     def on_mouse_motion(self, x, y, dx, dy):
+        #sets highlight to none, and checks if mouse is hovering on an upgrade, if it is then set highlight to that upgrade
         self.highlight_y_value = None
         for upgrade, y_offset in self.upgrades:
             if (self.left + 10 < x < self.right - 10 and self.top - (y_offset + 7.5) < y < self.top - (y_offset - 25)) and upgrade.active is False:
