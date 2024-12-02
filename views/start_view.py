@@ -1,4 +1,5 @@
 import arcade
+import pyglet
 from views import NameInputView
 
 class StartView(arcade.View):
@@ -14,6 +15,9 @@ class StartView(arcade.View):
         #Load the startup sound
         self.start_sound = arcade.load_sound("assets/game_sound.wav")
         self.sound_player = None
+
+        #add font
+        pyglet.font.add_file("assets/font.ttf")
 
 
     def on_show_view(self):
@@ -39,16 +43,11 @@ class StartView(arcade.View):
         self.clear()
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background_image)
 
-        #arcade.draw_text("BUTTON BASHER", self.window.width / 2, self.window.height / 2,
-        #                 arcade.color.WHITE, font_size=50, anchor_x="center")
-        #arcade.draw_text("Click To Start Game", self.window.width / 2, self.window.height / 2 - 40,
-        #                 arcade.color.WHITE, font_size=20, anchor_x="center")
-        # Draw the button
         arcade.draw_rectangle_filled(self.button_x, self.button_y, 
                                      self.button_width, self.button_height, 
                                      arcade.color.LIGHT_PINK)
         arcade.draw_text("Start Game", self.button_x, self.button_y, 
-                         arcade.color.BLACK, font_size=20, font_name= "assets/font.ttf", anchor_x="center", anchor_y="center", bold = True)
+                         arcade.color.BLACK, font_size=30, font_name="Jersey 15", anchor_x="center", anchor_y="center", bold = True)
 
     def on_mouse_press(self, x, y, button, modifiers):
         """ Check if the button is clicked """
