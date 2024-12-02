@@ -13,18 +13,21 @@ class UpgradeSection(arcade.Section):
          # Load the upgrade purchase sound
         self.purchase_sound = arcade.load_sound("assets/upgrade_sound.mp3")
 
-        #U pgrades list, each tuple contains upgrade and y_offset
+        #Upgrades list, each tuple contains upgrade and y_offset
         self.upgrades = [
             (AutoClicker(), 130),
-            #(DoubleClicker(), 180),
-            (MegaAutoClicker(), 230),
-            (FactoryWorker(), 280),
-            #(ScoreMultiplier(), 330),
-            #(BoostedClicker(), 380),
-            (TurboClicker(), 430),
-            (MaxClicker(), 480)
+            (MegaAutoClicker(), 180),
+            (ButtonGear(), 230),
+            (ButtonBooster(), 280),
+            (ButtonEvolver(), 330),
+            (FactoryWorker(), 380),
+            (ButtonMachine(), 430),
+            (PowerGenerator(), 480),
+            (ButtonBoss(), 530),
+            (ButtonFactory(), 580),
+            (ButtonBashMilk(), 630)
         ]
-        
+                
     def on_draw(self):
         # Draw the background image
         arcade.draw_lrwh_rectangle_textured(self.left, self.bottom, self.width, self.height, self.background_image)

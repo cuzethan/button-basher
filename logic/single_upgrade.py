@@ -64,27 +64,3 @@ class ButtonBooster(SingleUpgrade):
 
     def apply_effect(self, game_view):
         game_view.score_per_sec_multi *= 2 #multiply point per sec by 2
-
-class TurboClicker(SingleUpgrade): #temporary upgrade
-    def __init__(self):
-        super().__init__(250, "TurboClicker", "Temporary incease")
-
-    def apply_effect(self, game_view):
-        start_time = time.time()
-        game_view.click_multi *= 2  #multiply click multi by 2 for 30 sec
-        while time.time() - start_time < 30: #wait 30 sec
-            pass
-        game_view.click_multi /= 2 #revert to default multi
-        self.active = False
-
-class MaxClicker(SingleUpgrade): #temporary upgrade
-    def __init__(self):
-        super().__init__(5000, "Max Clicker", "Temporary increase")
-
-    def apply_effect(self, game_view):
-        start_time = time.time()
-        game_view.score_per_sec_multi *= 3  #multiply button per sec by x3
-        while time.time() - start_time < 30: #wait 60 sec
-            pass
-        game_view.score_per_sec_multi /= 3  #reset multi
-        self.active = False

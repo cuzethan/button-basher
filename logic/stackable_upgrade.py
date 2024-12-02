@@ -80,8 +80,7 @@ class ButtonFactory(StackableUpgrade):
     def apply_effect(self, game_view, amount):
         game_view.score_per_sec += 15 * amount # Each factory adds 15 buttons/sec
 
-class ButtonBashMilk:
-    class ButtonBoss(StackableUpgrade):
+class ButtonBashMilk(StackableUpgrade):
     def __init__(self):
         super().__init__(200, 1.5, "Button Bash Milk", "Consume some Button Bash Milk that increases click by 0.5 button")
     

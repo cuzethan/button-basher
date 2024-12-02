@@ -27,15 +27,20 @@ class ButtonSection(arcade.Section):
         self.scale_target = 1.0  # Target scale for animation
         self.scale_speed = 5.0  # Speed of scaling animation
 
+        # Click tracker
+        self.click_count = 0
+        self.elapsed_time = 0
+        self.clicks_per_sec = 0
+
     def on_draw(self):
          # Draw the background image
         arcade.draw_lrwh_rectangle_textured(self.left, self.bottom, self.width, self.height, self.background_image)
         self.button_sprite.draw()
         arcade.draw_text(f"{self.name}'s Button Factory", self.left, self.window.height - 60, 
             arcade.color.WHITE, 25, width=self.width, align="center",)
-        arcade.draw_text(f"{int(self.game_view.score)} Buttons", self.left, self.window.height // 2 + 200, 
+        arcade.draw_text(f"{self.game_view.score:.2f} Buttons", self.left, self.window.height // 2 + 200, 
             arcade.color.WHITE, 25, width=self.width, align="center")
-        arcade.draw_text(f"{self.game_view.score_per_sec} Buttons Per Sec", self.left, self.window.height // 2 + 160, 
+        arcade.draw_text(f"{self.calc_total_buttons_per_sec():.2f} Buttons Per Sec", self.left, self.window.height // 2 + 160, 
             arcade.color.WHITE, 20, width=self.width, align="center")
         
     def on_update(self, delta_time):
@@ -57,10 +62,22 @@ class ButtonSection(arcade.Section):
         if self.button_sprite.scale == self.scale_target and self.scale_target != 1.0:
             self.scale_target = 1.0
 
+        # Clicks per second calculation
+        self.elapsed_time += delta_time
+        if self.elapsed_time >= 1:  # Every second
+            self.clicks_per_sec = self.click_count / self.elapsed_time
+            self.click_count = 0
+            self.elapsed_time = 0
+
     def on_mouse_press(self, x, y, button, modifiers):
         if self.button_sprite.collides_with_point((x, y)):
             self.game_view.score += (self.game_view.click_value * self.game_view.click_multi)
             self.scale_target = 0.9  # Shrink the button when clicked
-
+            self.click_count += 1
             # Play the click sound
             arcade.play_sound(self.button_click_sound)
+
+    def calc_total_buttons_per_sec(self):
+        auto = self.game_view.score_per_sec * self.game_view.score_per_sec_multi
+        manual = self.clicks_per_sec * self.game_view.click_value * self.game_view.click_multi
+        return auto + manual
