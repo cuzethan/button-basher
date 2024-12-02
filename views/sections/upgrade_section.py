@@ -54,7 +54,7 @@ class UpgradeSection(arcade.Section):
 
             if self.highlight_y_value: # set highlight for mouse hover on upgrades
                 arcade.draw_lrtb_rectangle_filled(self.left + 10, self.right - 10, self.top - (self.highlight_y_value - 25),
-                        self.top - (self.highlight_y_value + 7.5), (255, 0, 0, 60))
+                        self.top - (self.highlight_y_value + 7.5), (150, 75, 0, 40))
 
     def on_mouse_press(self, x, y, button, modifiers):
         # Iterate through upgrades and check if they were clicked
