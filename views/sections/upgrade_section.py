@@ -8,7 +8,7 @@ class UpgradeSection(arcade.Section):
         self.game_view = game_view
         self.buy_amount = 1
         self.highlight_y_value = None
-        #self.background_image = arcade.load_texture("assets/upgrade_section.png")  # Load background image
+        self.background_image = arcade.load_texture("assets/upgrade_background.png")  # Load background image
 
          # Load the upgrade purchase sound
         self.purchase_sound = arcade.load_sound("assets/upgrade_sound.mp3")
@@ -16,18 +16,18 @@ class UpgradeSection(arcade.Section):
         #U pgrades list, each tuple contains upgrade and y_offset
         self.upgrades = [
             (AutoClicker(), 130),
-            (DoubleClicker(), 180),
+            #(DoubleClicker(), 180),
             (MegaAutoClicker(), 230),
             (FactoryWorker(), 280),
-            (ScoreMultiplier(), 330),
-            (BoostedClicker(), 380),
+            #(ScoreMultiplier(), 330),
+            #(BoostedClicker(), 380),
             (TurboClicker(), 430),
             (MaxClicker(), 480)
         ]
         
     def on_draw(self):
-        # set background color to orange
-        #arcade.draw_lrtb_rectangle_filled(self.left, self.right, self.top, self.bottom, arcade.color.ORANGE)
+        # Draw the background image
+        arcade.draw_lrwh_rectangle_textured(self.left, self.bottom, self.width, self.height, self.background_image)
 
         # set "Upgrades" title
         arcade.draw_text("Upgrades", self.left, self.window.height - 60, 

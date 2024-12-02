@@ -18,7 +18,7 @@ class ButtonSection(arcade.Section):
         self.button_sprite.center_y = self.height // 2
         self.button_sprite.scale = 1.0  # Default scale
 
-        #self.background_image = arcade.load_texture("assets/button_section.png")  # Load background image
+        self.background_image = arcade.load_texture("assets/button_background.png")  # Load background image
 
         # Load the button click sound
         self.button_click_sound = arcade.load_sound(BUTTON_CLICK_SOUND)
@@ -29,14 +29,14 @@ class ButtonSection(arcade.Section):
 
     def on_draw(self):
          # Draw the background image
-        #arcade.draw_lrwh_rectangle_textured(self.left, self.bottom, self.width, self.height, self.background_image)
+        arcade.draw_lrwh_rectangle_textured(self.left, self.bottom, self.width, self.height, self.background_image)
         self.button_sprite.draw()
         arcade.draw_text(f"{self.name}'s Button Factory", self.left, self.window.height - 60, 
-            arcade.color.BLACK, 25, width=self.width, align="center")
+            arcade.color.WHITE, 25, width=self.width, align="center",)
         arcade.draw_text(f"{int(self.game_view.score)} Buttons", self.left, self.window.height // 2 + 200, 
-            arcade.color.BLACK, 25, width=self.width, align="center")
+            arcade.color.WHITE, 25, width=self.width, align="center")
         arcade.draw_text(f"{self.game_view.score_per_sec} Buttons Per Sec", self.left, self.window.height // 2 + 160, 
-            arcade.color.BLACK, 20, width=self.width, align="center")
+            arcade.color.WHITE, 20, width=self.width, align="center")
         
     def on_update(self, delta_time):
         # Increment score automatically based on score_per_sec
