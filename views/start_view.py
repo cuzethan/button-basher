@@ -46,6 +46,9 @@ class StartView(arcade.View):
         arcade.draw_rectangle_filled(self.button_x, self.button_y, 
                                      self.button_width, self.button_height, 
                                      arcade.color.LIGHT_PINK)
+        arcade.draw_rectangle_outline(self.button_x, self.button_y, 
+                                     self.button_width, self.button_height, 
+                                     arcade.color.BLACK, 4)
         arcade.draw_text("Start Game", self.button_x, self.button_y, 
                          arcade.color.BLACK, font_size=30, font_name="Jersey 15", anchor_x="center", anchor_y="center", bold = True)
 
