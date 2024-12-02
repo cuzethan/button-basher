@@ -40,7 +40,7 @@ class StackableUpgrade:
         return f"{self.name} (x{self.count}) - Cost: {self.get_total_cost(amount)}"
 
     def getColor(self):
-        return arcade.color.DARK_GREEN
+        return arcade.color.BLACK
     
     def getHelpText(self):
         return self.help_text

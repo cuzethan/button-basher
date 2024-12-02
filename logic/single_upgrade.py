@@ -15,7 +15,7 @@ class SingleUpgrade:
             return self.name + " - Cost: " + str(self.cost)
 
     def getColor(self):
-        return arcade.color.GREEN if self.active else arcade.color.DARK_GREEN
+        return arcade.color.GREEN if self.active else arcade.color.BLACK
 
     def activate(self, game_view, sound):
         if game_view.score >= self.cost and not self.active:

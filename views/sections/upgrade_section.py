@@ -8,7 +8,7 @@ class UpgradeSection(arcade.Section):
         self.game_view = game_view
         self.buy_amount = 1
         self.highlight_y_value = None
-        self.background_image = arcade.load_texture("assets/upgrade_background.png")  # Load background image
+        self.background_image = arcade.load_texture("assets/upgrade_background.jpg")  # Load background image
 
          # Load the upgrade purchase sound
         self.purchase_sound = arcade.load_sound("assets/upgrade_sound.wav")
@@ -34,21 +34,21 @@ class UpgradeSection(arcade.Section):
 
         # set "Upgrades" title
         arcade.draw_text("Upgrades", self.left, self.window.height - 60, 
-                        arcade.color.BLACK, 25, width=self.width, align="center")
+                        arcade.color.BLACK, 32.5, font_name="Jersey 15", width=self.width, align="center")
 
         # draw buttons 
-        arcade.draw_text("Buy 1", 67.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 1 else arcade.color.BLACK, 15)
-        arcade.draw_text("Buy 10", 267.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 10 else arcade.color.BLACK, 15)
-        arcade.draw_text("Buy 100", 467.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 100 else arcade.color.BLACK, 15)
-        arcade.draw_text("What do upgrades do?", 20, self.window.height - 60, arcade.color.BLACK, 10, bold=True)
-        arcade.draw_lrtb_rectangle_outline(15, 175, self.window.height-45, self.window.height-65, arcade.color.BLACK)
+        arcade.draw_text("Buy 1", 72.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 1 else arcade.color.BLACK, 20, font_name="Jersey 15")
+        arcade.draw_text("Buy 10", 272.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 10 else arcade.color.BLACK, 20, font_name="Jersey 15")
+        arcade.draw_text("Buy 100", 472.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 100 else arcade.color.BLACK, 20, font_name="Jersey 15")
+        arcade.draw_text("What do upgrades do?", self.left, 60, arcade.color.BLACK, 20, bold=True, width=self.width, align="center", font_name="Jersey 15")
+        arcade.draw_lrtb_rectangle_outline(self.width/2 - 125, self.width/2 + 125, 80, 55, arcade.color.BLACK, 2)
 
         # Iterate through upgrades and draw them dynamically
         for upgrade, y_offset in self.upgrades:
             if isinstance(upgrade, StackableUpgrade): # will draw text specifically for stackable upgrades
-                arcade.draw_text(upgrade.getDesc(self.buy_amount), self.left + 20, self.top - y_offset, upgrade.getColor(), 16)
+                arcade.draw_text(upgrade.getDesc(self.buy_amount), self.left + 20, self.top - y_offset, upgrade.getColor(), 20, font_name="Jersey 15")
             else: # draw text for single upgrades
-                arcade.draw_text(upgrade.getDesc(), self.left + 20, self.top - y_offset, upgrade.getColor(), 16)
+                arcade.draw_text(upgrade.getDesc(), self.left + 20, self.top - y_offset, upgrade.getColor(), 20, font_name="Jersey 15")
             arcade.draw_lrtb_rectangle_outline(self.left + 10, self.right - 10, self.top - (y_offset - 25), # outline of upgrade boxes
                         self.top - (y_offset + 7.5), arcade.color.BLACK, 2)
 

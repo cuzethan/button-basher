@@ -18,7 +18,7 @@ class ButtonSection(arcade.Section):
         self.button_sprite.center_y = self.height // 2
         self.button_sprite.scale = 1.0  # Default scale
 
-        self.background_image = arcade.load_texture("assets/button_background.png")  # Load background image
+        self.background_image = arcade.load_texture("assets/button_background.jpg")  # Load background image
 
         # Load the button click sound
         self.button_click_sound = arcade.load_sound(BUTTON_CLICK_SOUND)
@@ -37,20 +37,20 @@ class ButtonSection(arcade.Section):
         arcade.draw_lrwh_rectangle_textured(self.left, self.bottom, self.width, self.height, self.background_image)
         self.button_sprite.draw()
         arcade.draw_text(f"{self.name}'s Button Factory", self.left, self.window.height - 60, 
-            arcade.color.WHITE, 25, width=self.width, align="center",)
+            arcade.color.WHITE, 45, width=self.width, align="center", font_name="Jersey 15")
         arcade.draw_text(f"{self.game_view.score:.2f} Buttons", self.left, self.window.height // 2 + 200, 
-            arcade.color.WHITE, 25, width=self.width, align="center")
+            arcade.color.WHITE, 37.5, width=self.width, align="center", font_name="Jersey 15")
         arcade.draw_text(f"{self.calc_total_buttons_per_sec():.2f} buttons/s", self.left, self.window.height // 2 + 160, 
-            arcade.color.WHITE, 20, width=self.width, align="center")
+            arcade.color.WHITE, 30, width=self.width, align="center", font_name="Jersey 15")
 
         arcade.draw_text(f"Base Auto Value: {self.game_view.score_per_sec} buttons/s", self.left, self.window.height // 2 - 170, 
-            arcade.color.WHITE, 20, width=self.width, align="center")
+            arcade.color.WHITE, 30, width=self.width, align="center", font_name="Jersey 15")
         arcade.draw_text(f"Auto Multiplier: {self.game_view.score_per_sec_multi}", self.left, self.window.height // 2 - 220, 
-            arcade.color.WHITE, 20, width=self.width, align="center")
+            arcade.color.WHITE, 30, width=self.width, align="center", font_name="Jersey 15")
         arcade.draw_text(f"Base Click Value: {self.game_view.click_value}", self.left, self.window.height // 2 - 270, 
-            arcade.color.WHITE, 20, width=self.width, align="center")
+            arcade.color.WHITE, 30, width=self.width, align="center", font_name="Jersey 15")
         arcade.draw_text(f"Click Multiplier: {self.game_view.click_multi}", self.left, self.window.height // 2 - 320, 
-            arcade.color.WHITE, 20, width=self.width, align="center")
+            arcade.color.WHITE, 30, width=self.width, align="center", font_name="Jersey 15")
         
     def on_update(self, delta_time):
         # Increment score automatically based on score_per_sec
