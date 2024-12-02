@@ -2,7 +2,7 @@ import arcade
 
 # Constants
 BUTTON_IMAGE = "assets/button.png"
-BUTTON_CLICK_SOUND = "assets/click sound.wav"
+BUTTON_CLICK_SOUND = "assets/click_sound.wav"
 
 class ButtonSection(arcade.Section):
 

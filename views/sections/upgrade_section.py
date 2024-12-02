@@ -11,7 +11,7 @@ class UpgradeSection(arcade.Section):
         self.background_image = arcade.load_texture("assets/upgrade_background.png")  # Load background image
 
          # Load the upgrade purchase sound
-        self.purchase_sound = arcade.load_sound("assets/upgrade_sound.mp3")
+        self.purchase_sound = arcade.load_sound("assets/upgrade_sound.wav")
 
         #Upgrades list, each tuple contains upgrade and y_offset
         self.upgrades = [

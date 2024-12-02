@@ -12,7 +12,7 @@ class StartView(arcade.View):
         self.background_image = arcade.load_texture("assets/title_image.png") #Load the title image
 
         #Load the startup sound
-        self.start_sound = arcade.load_sound("assets/game_sound.mp3")
+        self.start_sound = arcade.load_sound("assets/game_sound.wav")
         self.sound_player = None
 
 
