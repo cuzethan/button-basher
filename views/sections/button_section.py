@@ -40,7 +40,16 @@ class ButtonSection(arcade.Section):
             arcade.color.WHITE, 25, width=self.width, align="center",)
         arcade.draw_text(f"{self.game_view.score:.2f} Buttons", self.left, self.window.height // 2 + 200, 
             arcade.color.WHITE, 25, width=self.width, align="center")
-        arcade.draw_text(f"{self.calc_total_buttons_per_sec():.2f} Buttons Per Sec", self.left, self.window.height // 2 + 160, 
+        arcade.draw_text(f"{self.calc_total_buttons_per_sec():.2f} buttons/s", self.left, self.window.height // 2 + 160, 
+            arcade.color.WHITE, 20, width=self.width, align="center")
+
+        arcade.draw_text(f"Base Auto Value: {self.game_view.score_per_sec} buttons/s", self.left, self.window.height // 2 - 170, 
+            arcade.color.WHITE, 20, width=self.width, align="center")
+        arcade.draw_text(f"Auto Multiplier: {self.game_view.score_per_sec_multi}", self.left, self.window.height // 2 - 220, 
+            arcade.color.WHITE, 20, width=self.width, align="center")
+        arcade.draw_text(f"Base Click Value: {self.game_view.click_value}", self.left, self.window.height // 2 - 270, 
+            arcade.color.WHITE, 20, width=self.width, align="center")
+        arcade.draw_text(f"Click Multiplier: {self.game_view.click_multi}", self.left, self.window.height // 2 - 320, 
             arcade.color.WHITE, 20, width=self.width, align="center")
         
     def on_update(self, delta_time):
