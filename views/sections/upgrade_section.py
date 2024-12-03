@@ -1,6 +1,7 @@
 import arcade
 from logic.single_upgrade import *
 from logic.stackable_upgrade import *
+from views.upgrade_info_view import UpgradeInfoView
 
 class UpgradeSection(arcade.Section):
     def __init__(self, left: int, bottom: int, width: int, height: int, game_view, **kwargs):
@@ -36,11 +37,13 @@ class UpgradeSection(arcade.Section):
         arcade.draw_text("Upgrades", self.left, self.window.height - 60, 
                         arcade.color.BLACK, 32.5, font_name="Jersey 15", width=self.width, align="center")
 
-        # draw buttons 
+        # draw buttons for buy multiplier buttons 
         arcade.draw_text("Buy 1", 72.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 1 else arcade.color.BLACK, 20, font_name="Jersey 15")
         arcade.draw_text("Buy 10", 272.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 10 else arcade.color.BLACK, 20, font_name="Jersey 15")
         arcade.draw_text("Buy 100", 472.5, self.window.height - 90, arcade.color.GREEN if self.buy_amount == 100 else arcade.color.BLACK, 20, font_name="Jersey 15")
-        arcade.draw_text("What do upgrades do?", self.left, 60, arcade.color.BLACK, 20, bold=True, width=self.width, align="center", font_name="Jersey 15")
+
+        # draw button for upgrade stats
+        arcade.draw_text("What do upgrades do?", 180, 60, arcade.color.BLACK, 20, bold=True, font_name="Jersey 15")
         arcade.draw_lrtb_rectangle_outline(self.width/2 - 125, self.width/2 + 125, 80, 55, arcade.color.BLACK, 2)
 
         # Iterate through upgrades and draw them dynamically
@@ -54,7 +57,7 @@ class UpgradeSection(arcade.Section):
 
             if self.highlight_y_value: # set highlight for mouse hover on upgrades
                 arcade.draw_lrtb_rectangle_filled(self.left + 10, self.right - 10, self.top - (self.highlight_y_value - 25),
-                        self.top - (self.highlight_y_value + 7.5), (150, 75, 0, 40))
+                        self.top - (self.highlight_y_value + 7.5), (0, 153, 255, 40))
 
     def on_mouse_press(self, x, y, button, modifiers):
         # Iterate through upgrades and check if they were clicked
@@ -64,17 +67,22 @@ class UpgradeSection(arcade.Section):
                     upgrade.activate(self.game_view, self.purchase_sound, self.buy_amount)
                 else: # use activate method for single_upgrade
                     upgrade.activate(self.game_view, self.purchase_sound)
+
         # Check if Buy 1 is clicked
-        if 67.5 <= x <= 67.5 + 60 and self.window.height - 90 <= y <= self.window.height - 75:
+        if 72.5 - 10 <= x <= 72.5 + 60 and self.window.height - 90 <= y <= self.window.height - 75:
             self.buy_amount = 1
 
         # Check if Buy 10 is clicked
-        elif 267.5 <= x <= 267.5 + 70 and self.window.height - 90 <= y <= self.window.height - 75:
+        elif 272.5 <= x <= 272.5 + 60 and self.window.height - 90 <= y <= self.window.height - 75:
             self.buy_amount = 10
 
         # Check if Buy 100 is clicked
-        elif 467.5 <= x <= 467.5 + 85 and self.window.height - 90 <= y <= self.window.height - 75:
+        elif 472.5 <= x <= 472.5 + 60 and self.window.height - 90 <= y <= self.window.height - 75:
             self.buy_amount = 100
+
+        # Check if upgrade info button is clicked
+        elif 170 <= x <= 420 and 55 <= y <= 80:
+            self.window.show_view(UpgradeInfoView(self.game_view))
     
     def on_mouse_motion(self, x, y, dx, dy):
         #sets highlight to none, and checks if mouse is hovering on an upgrade, if it is then set highlight to that upgrade

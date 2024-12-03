@@ -27,8 +27,8 @@ class SingleUpgrade:
     def apply_effect(self, game_view):
         pass
     
-    def getHelpText(self):
-        return self.help_text
+    def getFullHelpText(self):
+        return self.name + ": " + self.help_text
 
 class AutoClicker(SingleUpgrade):
     def __init__(self):
@@ -60,7 +60,7 @@ class ButtonEvolver(SingleUpgrade):
 
 class ButtonBooster(SingleUpgrade):
     def __init__(self):
-        super().__init__(2000, "ButtonBooster", "Gain a considerable increase of buttons generated per sec")
+        super().__init__(2000, "ButtonBooster", "Boosts button mechanics which increases button per sec by 2x")
 
     def apply_effect(self, game_view):
         game_view.score_per_sec_multi *= 2 #multiply point per sec by 2

@@ -42,8 +42,8 @@ class StackableUpgrade:
     def getColor(self):
         return arcade.color.BLACK
     
-    def getHelpText(self):
-        return self.help_text
+    def getFullHelpText(self):
+        return self.name + ": " + self.help_text
 
 class FactoryWorker(StackableUpgrade):
     def __init__(self):
@@ -82,7 +82,7 @@ class ButtonFactory(StackableUpgrade):
 
 class ButtonBashMilk(StackableUpgrade):
     def __init__(self):
-        super().__init__(200, 1.5, "Button Bash Milk", "Consume some Button Bash Milk that increases click by 0.5 button")
+        super().__init__(200, 1.5, "Button Bash Milk", "Consume some Button Bash Milk that adds a button per click")
     
     def apply_effect(self, game_view, amount):
-        game_view.click_value += 0.5 * amount # Each milk adds 0.5 button/click
+        game_view.click_value += 1 * amount # Drinking milk adds 1 button/click
