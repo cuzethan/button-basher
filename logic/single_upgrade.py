@@ -10,25 +10,25 @@ class SingleUpgrade:
 
     def getDesc(self):
         if self.active:
-            return self.name + " Activated"
+            return self.name + " Activated" # Shows that upgrade is activate 
         else:
-            return self.name + " - Cost: " + str(self.cost)
+            return self.name + " - Cost: " + str(self.cost) # Default display for upgrade
 
     def getColor(self):
-        return arcade.color.GREEN if self.active else arcade.color.BLACK
+        return arcade.color.GREEN if self.active else arcade.color.BLACK # Turns font green if active, else shows black
 
     def activate(self, game_view, sound):
-        if game_view.score >= self.cost and not self.active:
-            game_view.score -= self.cost
-            self.active = True
-            arcade.play_sound(sound)
-            self.apply_effect(game_view)
+        if game_view.score >= self.cost and not self.active: # If enough money and not active
+            game_view.score -= self.cost # Deduct cost from total score
+            self.active = True # Set upgrade as active
+            arcade.play_sound(sound) # Play purchase sound effect
+            self.apply_effect(game_view) # Apply upgrade effect (different for every upgrade)
     
     def apply_effect(self, game_view):
         pass
     
     def getFullHelpText(self):
-        return self.name + ": " + self.help_text
+        return self.name + ": " + self.help_text # Returns info on upgrade
 
 class AutoClicker(SingleUpgrade):
     def __init__(self):

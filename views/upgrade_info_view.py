@@ -5,10 +5,9 @@ from logic.stackable_upgrade import *
 class UpgradeInfoView(arcade.View):
     def __init__(self, game_view):
         super().__init__()
-        self.background_image = arcade.load_texture("assets/background_image.png")
-        self.game_view = game_view
+        self.game_view = game_view # Set paramater as game_view
         
-        #Upgrades list, each tuple contains upgrade and y_offset
+        # Single upgrades list, each tuple contains upgrade and y_offset
         self.single_upgrades = [
             (AutoClicker(), 100),
             (MegaAutoClicker(), 140),
@@ -17,6 +16,7 @@ class UpgradeInfoView(arcade.View):
             (ButtonEvolver(), 260),
         ]
 
+        # Stackable upgrades list, same concept as above 
         self.stackable_upgrades = [
             (FactoryWorker(), 360),
             (ButtonMachine(), 400),
@@ -30,6 +30,7 @@ class UpgradeInfoView(arcade.View):
         """ Draw the popup input screen """
         arcade.start_render()
 
+        # Loops through all the upgrades and writes information on what each upgrade does
         arcade.draw_text("Single Upgrades", 40, self.window.height - 60, arcade.color.BLACK, 40, font_name="Jersey 15")
         for upgrade, y_offset in self.single_upgrades:
             arcade.draw_text(upgrade.getFullHelpText(), 60, self.window.height - y_offset, upgrade.getColor(), 20, font_name="Jersey 15")
@@ -38,10 +39,12 @@ class UpgradeInfoView(arcade.View):
         for upgrade, y_offset in self.stackable_upgrades:
             arcade.draw_text(upgrade.getFullHelpText(), 60, self.window.height - y_offset, upgrade.getColor(), 20, font_name="Jersey 15")
 
+        # Button to go back to game view
         arcade.draw_rectangle_filled(self.window.width - 90, 40, 125, 35, arcade.color.LIGHT_PINK)
         arcade.draw_rectangle_outline(self.window.width - 90, 40, 125, 35, arcade.color.BLACK, 4)
         arcade.draw_text("Go Back", self.window.width - 147.5, 30, arcade.color.BLACK, 30, font_name="Jersey 15")
 
     def on_mouse_press(self, x, y, button, modifiers):
+        # If button is pressed, go back to game view
         if self.window.width - 155 <= x <= self.window.width - 35 and 20 <= y <= 60:
             self.window.show_view(self.game_view)

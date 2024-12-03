@@ -4,13 +4,13 @@ from views.sections import UpgradeSection, ButtonSection
 class GameView(arcade.View):
     def __init__(self, name):
         super().__init__()
-        #factory name
+        # Factory Name
         self.name = name 
 
-        #total score
+        # TOTAL SCORE
         self.score = 0 
 
-        #click value and auto values/multipliers
+        # Click value, auto value, and its multipliers
         self.score_per_sec = 0
         self.score_per_sec_multi = 1
         self.click_value = 1

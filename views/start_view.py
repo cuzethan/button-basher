@@ -9,14 +9,14 @@ class StartView(arcade.View):
         # Call the parent class initializer
         super().__init__()
 
-        #Load the title image
+        # Load the title image
         self.background_image = arcade.load_texture("assets/title_image.png") #Load the title image
 
-        #Load the startup sound
+        # Load the startup sound
         self.start_sound = arcade.load_sound("assets/game_sound.wav")
         self.sound_player = None
 
-        #add font
+        # Import font
         pyglet.font.add_file("assets/font.ttf")
 
 
@@ -41,8 +41,11 @@ class StartView(arcade.View):
     def on_draw(self):
         """ Draw this view """
         self.clear()
+
+        # Draws Background
         arcade.draw_lrwh_rectangle_textured(0, 0, self.window.width, self.window.height, self.background_image)
 
+        #Draws "Start Game Button"
         arcade.draw_rectangle_filled(self.button_x, self.button_y, 
                                      self.button_width, self.button_height, 
                                      arcade.color.LIGHT_PINK)
@@ -51,11 +54,11 @@ class StartView(arcade.View):
                                      arcade.color.BLACK, 4)
         arcade.draw_text("Start Game", self.button_x, self.button_y, 
                          arcade.color.BLACK, font_size=30, font_name="Jersey 15", anchor_x="center", anchor_y="center", bold = True)
-
+    
     def on_mouse_press(self, x, y, button, modifiers):
         """ Check if the button is clicked """
         if (self.button_x - self.button_width / 2 < x < self.button_x + self.button_width / 2 and
             self.button_y - self.button_height / 2 < y < self.button_y + self.button_height / 2):
-            #Start the game if the button is clicked
+            #Shows NameInput View if the button is clicked
             name_view = NameInputView(shared_sound=self.start_sound, sound_player=self.sound_player)
             self.window.show_view(name_view)

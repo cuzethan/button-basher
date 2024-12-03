@@ -2,8 +2,8 @@ import arcade
 
 class StackableUpgrade:
     def __init__(self, base_cost, cost_multi, name, help_text):
-        self.cost = base_cost
-        self.cost_multi = cost_multi
+        self.cost = base_cost # Base cost of upgrade
+        self.cost_multi = cost_multi # Multiplier of cost of upgrade as more are bought
         self.active = False 
         self.name = name
         self.count = 0
@@ -12,10 +12,10 @@ class StackableUpgrade:
     def get_total_cost(self, amount):
         """Calculate the total cost for buying 'amount' upgrades."""
         total_cost = 0
-        current_cost = self.cost
-        for _ in range(amount):
-            total_cost += current_cost
-            current_cost *= self.cost_multi
+        current_cost = self.cost # Check current cost
+        for _ in range(amount): # For loop goes by amount
+            total_cost += current_cost # Add current cost to increasing total cost
+            current_cost *= self.cost_multi # Multi cost buy its multiplier
         return total_cost
 
     def can_afford(self, game_view, amount):
@@ -24,26 +24,26 @@ class StackableUpgrade:
         
     def activate(self, game_view, sound, amount=1):
         """Buy 'amount' upgrades."""
-        if self.can_afford(game_view, amount):
-            arcade.play_sound(sound)
-            total_cost = self.get_total_cost(amount)
-            game_view.score -= total_cost
-            self.count += amount
-            self.cost *= self.cost_multi ** amount
-            self.apply_effect(game_view, amount)    
+        if self.can_afford(game_view, amount): # If affordable
+            arcade.play_sound(sound) # Play sound effect
+            total_cost = self.get_total_cost(amount) # Get the total cost
+            game_view.score -= total_cost # Deduct total cost from current score
+            self.count += amount # Add quantity of upgrade by amount purchase
+            self.cost *= self.cost_multi ** amount # Multiply cost by the multiplier to the power of amount bought
+            self.apply_effect(game_view, amount) # Applys upgrade effect
     
     def apply_effect(self, game_view, amount):
         """Apply the upgrade effect."""
         pass
 
     def getDesc(self, amount):
-        return f"{self.name} (x{self.count}) - Cost: {self.get_total_cost(amount)}"
+        return f"{self.name} (x{self.count}) - Cost: {self.get_total_cost(amount)}" # Shows amount of upgrade bought and it's cost
 
     def getColor(self):
-        return arcade.color.BLACK
+        return arcade.color.BLACK # Color will always be black
     
     def getFullHelpText(self):
-        return self.name + ": " + self.help_text
+        return self.name + ": " + self.help_text # Return help text 
 
 class FactoryWorker(StackableUpgrade):
     def __init__(self):

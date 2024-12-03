@@ -7,9 +7,9 @@ class NameInputView(arcade.View):
     def __init__(self, shared_sound, sound_player):
         super().__init__()
         self.user_input = ""  # Store the user's name input
-        self.background_image = arcade.load_texture("assets/background_image.png")
-        self.start_sound = shared_sound
-        self.sound_player = sound_player
+        self.background_image = arcade.load_texture("assets/background_image.png") # Blured background
+        self.start_sound = shared_sound # Start sound 
+        self.sound_player = sound_player # The sound player (bring it to this view keeps music going)
 
     def on_draw(self):
         """ Draw the popup input screen """
@@ -32,13 +32,12 @@ class NameInputView(arcade.View):
     def on_key_press(self, key, modifiers):
         """ Handle user input """
         if key == arcade.key.ENTER:
-            #Stop sound after user enters name
+            # Stop sound after user enters name
             if self.sound_player:
                 self.start_sound.stop(self.sound_player)
     
-            # When Enter is pressed, handle the input (e.g., save it, print it, or pass it to another view)
-            self.window.show_view(GameView(self.user_input))  # Transition back to main view
-
+            # When Enter is pressed, move to game view with the final input as parameter
+            self.window.show_view(GameView(self.user_input))
         elif key == arcade.key.BACKSPACE:
             # Remove the last character from the input
             self.user_input = self.user_input[:-1]

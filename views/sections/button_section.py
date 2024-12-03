@@ -9,7 +9,7 @@ class ButtonSection(arcade.Section):
     def __init__(self, left: int, bottom: int, width: int, height: int, game_view, **kwargs):
         super().__init__(left, bottom, width, height, **kwargs)
 
-        self.game_view = game_view #will give us access to all data
+        self.game_view = game_view # Will give us access to all data
 
         # Variables that will hold sprite lists
         """ Set up the game and initialize the variables. """
@@ -35,7 +35,11 @@ class ButtonSection(arcade.Section):
     def on_draw(self):
          # Draw the background image
         arcade.draw_lrwh_rectangle_textured(self.left, self.bottom, self.width, self.height, self.background_image)
+        
+        # Draw button sprite
         self.button_sprite.draw()
+
+        # Draw all the text containg the info 
         arcade.draw_text(f"{self.name}'s Button Factory", self.left, self.window.height - 60, 
             arcade.color.WHITE, 45, width=self.width, align="center", font_name="Jersey 15")
         arcade.draw_text(f"{self.game_view.score:.2f} Buttons", self.left, self.window.height // 2 + 200, 
@@ -74,9 +78,9 @@ class ButtonSection(arcade.Section):
         # Clicks per second calculation
         self.elapsed_time += delta_time
         if self.elapsed_time >= 1:  # Every second
-            self.clicks_per_sec = self.click_count / self.elapsed_time
-            self.click_count = 0
-            self.elapsed_time = 0
+            self.clicks_per_sec = self.click_count / self.elapsed_time # divides by elapsed time to ensure accuracy 
+            self.click_count = 0 # Reset count to 0
+            self.elapsed_time = 0 # Reset time trackter to 0
 
     def on_mouse_press(self, x, y, button, modifiers):
         if self.button_sprite.collides_with_point((x, y)):
@@ -87,6 +91,6 @@ class ButtonSection(arcade.Section):
             arcade.play_sound(self.button_click_sound)
 
     def calc_total_buttons_per_sec(self):
-        auto = self.game_view.score_per_sec * self.game_view.score_per_sec_multi
-        manual = self.clicks_per_sec * self.game_view.click_value * self.game_view.click_multi
+        auto = self.game_view.score_per_sec * self.game_view.score_per_sec_multi # calculate passive income
+        manual = self.clicks_per_sec * self.game_view.click_value * self.game_view.click_multi # calculate active income made in a sec
         return auto + manual
