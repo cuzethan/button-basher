@@ -27,10 +27,7 @@ class NameInputView(arcade.View):
         
         # Instruction text
         arcade.draw_text("Press Enter to confirm", self.window.width / 2, self.window.height / 2 - 70,
-                         arcade.color.BLACK, 25, font_name="Jersey 15", anchor_x="center", bold= True)
-        
-        arcade.draw_text("Press Escape (esc) to return to the main menu", self.window.width / 2,
-                          self.window.height / 2 - 100, arcade.color.BLACK, 20, font_name="Jersey 15", anchor_x="center", bold = True)        
+                         arcade.color.BLACK, 25, font_name="Jersey 15", anchor_x="center", bold= True)      
 
     def on_key_press(self, key, modifiers):
         """ Handle user input """
@@ -40,16 +37,11 @@ class NameInputView(arcade.View):
                 self.start_sound.stop(self.sound_player)
     
             # When Enter is pressed, handle the input (e.g., save it, print it, or pass it to another view)
-            print(f"User entered name: {self.user_input}")
             self.window.show_view(GameView(self.user_input))  # Transition back to main view
 
         elif key == arcade.key.BACKSPACE:
             # Remove the last character from the input
             self.user_input = self.user_input[:-1]
-        elif key == arcade.key.ESCAPE:
-            name_module = importlib.import_module('views.start_view')
-            StartView = getattr(name_module, 'StartView')
-            self.window.show_view(StartView())  # Transition back to start view 
         else:
             # Handle printable characters (letters, numbers, space)
             if len(self.user_input) < 15:  # Optional: limit name length
